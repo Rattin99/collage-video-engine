@@ -9,9 +9,7 @@
     "@remotion/cli": "4.0.527",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remotion": "4.0.527",
-    "@remotion/tailwind-v4": "4.0.527",
-    "tailwindcss": "4.0.0"
+    "remotion": "4.0.527"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.527",
@@ -25,7 +23,12 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
-    "lint": "eslint src && tsc"
+    "lint": "eslint src && tsc",
+    "render:preview": "remotion render --scale=0.5 --concurrency=2 --codec=h264 --hardware-acceleration=if-possible --crf=28",
+    "render:final": "remotion render --codec=prores --prores-profile=422hq --concurrency=3",
+    "render:final-h264": "remotion render --codec=h264 --hardware-acceleration=if-possible --crf=18 --concurrency=3",
+    "render:alpha": "remotion render --codec=prores --prores-profile=4444 --pixel-format=yuva444p10le --image-format=png --concurrency=2",
+    "render:alpha-webm": "remotion render --codec=vp9 --pixel-format=yuva420p --image-format=png --concurrency=2"
   },
   "sideEffects": [
     "*.css"

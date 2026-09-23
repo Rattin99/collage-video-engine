@@ -13,8 +13,8 @@ export const MyComposition = () => {
       component={MyComponent}
       durationInFrames={60}
       fps={30}
-      width={1280}
-      height={720}
+      width={1920}
+      height={1080}
       calculateMetadata={calculateMetadata}
     />
   );
