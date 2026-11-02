@@ -71,6 +71,59 @@ declare module "sketches/clips/retro" {
   export function createRetroRunner(canvas: HTMLCanvasElement, options?: RetroRunnerOptions): RetroRunner;
 }
 
+declare module "sketches/effects" {
+  export type EffectMode = {
+    id: string;
+    label: string;
+    description: string;
+    loops: boolean;
+    boil: boolean;
+    reveal: boolean;
+    still: boolean;
+  };
+  export type EffectParamSpec = { default: unknown; min?: number; max?: number; step?: number; label?: string; type?: string };
+  export type Effect = {
+    id: string;
+    name: string;
+    description: string;
+    tags: string[];
+    kind: "effect";
+    defaultDuration: number;
+    alpha: "keep" | "moves";
+    modes: EffectMode[];
+    liveMode: string;
+    params: Record<string, EffectParamSpec>;
+  };
+  export const EFFECTS: Effect[];
+  export function getEffect(id: string): Effect | undefined;
+  export function listEffects(): Effect[];
+}
+
+declare module "sketches/effects/runtime" {
+  import type { Effect } from "sketches/effects";
+  export type EffectRunnerOptions = {
+    width?: number;
+    height?: number;
+    fps?: number;
+    duration?: number;
+    seed?: string | number;
+    mode?: string;
+    params?: Record<string, unknown>;
+    cycles?: number;
+    boilRate?: number;
+    input?: string | CanvasImageSource | null;
+    fit?: "cover" | "contain";
+  };
+  export type EffectRunner = {
+    renderFrame(frame: number, input?: CanvasImageSource): void;
+    setInput(input: CanvasImageSource | null): void;
+    canvas: HTMLCanvasElement;
+    totalFrames: number;
+    destroy(): void;
+  };
+  export function createEffectRunner(effect: Effect, host: HTMLElement | null, options?: EffectRunnerOptions): Promise<EffectRunner>;
+}
+
 declare module "sketches/retro-presets" {
   export const PRESETS: Record<string, Record<string, unknown>>;
 }
